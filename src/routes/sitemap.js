@@ -1,0 +1,3 @@
+const express=require('express'); const {nav,pages,esc}=require('./page-content'); const router=express.Router();
+router.get('/sitemap.xml', (_req,res) => { const urls = [...nav.map(([p])=>p), ...Object.keys(pages), '/mentions-legales','/reservation','/comment-sinscrire','/equipe','/calendrier','/politique-confidentialite','/accessibilite','/partenaires','/galerie','/adhesion','/famille','/espace-familles']; res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(p=>`<url><loc>${esc(process.env.BASE_URL || 'http://localhost:3000')}${p}</loc></url>`).join('')}</urlset>`); });
+module.exports=router;
